@@ -37,7 +37,7 @@
         "release": "yarn clean && yarn quality && yarn build"
     },
     "dependencies": {
-        "easy-template-x": "^0.10.3"
+        "easy-template-x": "git+https://github.com/TripleDK/easy-template-x.git"
     },
     "devDependencies": {
         "@babel/core": "7.8.4",
