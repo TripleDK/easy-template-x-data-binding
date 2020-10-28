@@ -12,7 +12,7 @@ export class CustomXmlFiles {
     constructor(
         private readonly zip: Zip,
         private readonly xmlParser: XmlParser
-    ) {}
+    ) { }
 
     public async save() {
         if (!this.loaded) {
@@ -29,6 +29,7 @@ export class CustomXmlFiles {
         if (this.loaded) {
             return this.files;
         }
+        console.log("OnePoint was here...");
 
         for (const path of this.zip.listFiles()) {
             if (!path.match(CustomXmlFiles.itemFileRegEx)) continue;
@@ -39,6 +40,8 @@ export class CustomXmlFiles {
             const fileData: string = await this.zip
                 .getFile(path)
                 .getContentText();
+            if (!fileData.includes('<Data xmlns="Template">')) { console.log("Skipped file " + filename); continue; }
+
             const node: XmlNode = this.xmlParser.parse(fileData);
             this.files.set(path, node);
         }
